@@ -1,4 +1,4 @@
-#ABSC Offline Harness – README
+# ABSC Offline Harness – README
 
 Adaptive Block Size Control (ABSC) 를 구현하기 위한 오프라인 실험 환경입니다.
 동일한 WAV 입력을 블록 기반 파이프라인으로 처리하고, 각 “가상 콜백”의 처리시간과 상태를 기록하여 고정형 vs 적응형(ABSC) 을 공정하게 비교할 수 있도록 설계했습니다.
