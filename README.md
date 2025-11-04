@@ -1,18 +1,18 @@
-ABSC Offline Harness – README
+#ABSC Offline Harness – README
 
 Adaptive Block Size Control (ABSC) 를 구현하기 위한 오프라인 실험 환경입니다.
 동일한 WAV 입력을 블록 기반 파이프라인으로 처리하고, 각 “가상 콜백”의 처리시간과 상태를 기록하여 고정형 vs 적응형(ABSC) 을 공정하게 비교할 수 있도록 설계했습니다.
 
 ⸻
 
-✅ 목표
+##✅ 목표
 	•	공정한 실험: 동일 입력(WAV) 기반, 동일 조건으로 반복 가능한 결과 확보
 	•	구조적 베이스라인: 이후 ABSC 알고리즘과 JUCE 실시간 으로 이식 가능
 	•	지표 기반 평가: 처리시간(cb_ms), underrun 등 핵심 지표를 자동 기록/시각화
 
 ⸻
 
-📦 저장소 구조
+##📦 저장소 구조
 
 absc_offline_harness/
   CMakeLists.txt
@@ -32,7 +32,7 @@ absc_offline_harness/
 
 ⸻
 
-🛠️ 빌드 환경 구축 & 빌드 시퀀스
+##🛠️ 빌드 환경 구축 & 빌드 시퀀스
 
 0) 필수 요소
 	•	C++17 컴파일러 (Clang, GCC, MSVC)
@@ -80,7 +80,7 @@ cmake --build build --config Release
 
 ⸻
 
-▶️ 실행 & 플로팅
+##▶️ 실행 & 플로팅
 	1.	입력 WAV 준비 (권장: 48kHz 스테레오)
 assets/input_48k.wav 로 두세요.
 	2.	실행 (오프라인 가상 콜백 루프)
@@ -104,7 +104,7 @@ python3 ../scripts/experiments.py
 
 ⸻
 
-🧩 코드 구조 & 각 모듈 역할
+##🧩 코드 구조 & 각 모듈 역할
 
 main	src/main.cpp	가상 콜백 루프를 돌며 hostFrames 단위로 입력을 읽고, 내부 block 단위 처리 후 출력. 각 콜백의 처리시간을 측정하여 metrics에 기록.
 FileSource	src/file_source.*	libsndfile로 WAV를 interleaved float로 읽어들임.
@@ -118,7 +118,7 @@ experiments	scripts/experiments.py	metrics.csv를 읽어 통계 출력, cb_ms �
 
 ⸻
 
-📊 우리가 평가하는 지표(왜 이걸 쓰는가?)
+###📊 우리가 평가하는 지표(왜 이걸 쓰는가?)
 
 지표	의미	왜 중요한가?	ABSC에서의 역할
 frame_index	“가상 콜백”의 순번(시간 인덱스)	시간에 따른 상태 변화를 분석하기 위한 기준축	block_size 전환 시점, 스파이크 위치 등 변곡점 식별
@@ -142,7 +142,7 @@ cb_ms = 성능(속도), underrun = 안정성(신뢰성), block_size = 제어 레
 
 ⸻
 
-🧭 앞으로의 방향성 (로드맵)
+###🧭 앞으로의 방향성 (로드맵)
 	1.	ABSC Controller 모듈 추가
 	•	50–100ms 주기로 cb_ms 이동평균과 underrun을 읽어 block_size(128/256/512) 를 히스테리시스+쿨다운으로 전환
 	•	파일: absc_controller.{hpp,cpp} (입력: 지표 / 출력: 다음 block_size)
